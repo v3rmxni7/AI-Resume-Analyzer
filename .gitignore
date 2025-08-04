@@ -1,0 +1,10 @@
+# Ignore Python cache files
+__pycache__/
+*.pyc
+
+# Ignore PDFs uploaded by user
+*.pdf
+uploaded_*.pdf
+
+# Ignore environment or secret files
+.env
