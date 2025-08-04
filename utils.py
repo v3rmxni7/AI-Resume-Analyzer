@@ -28,3 +28,18 @@ def calculate_similarity(resume_text, jd_text):
     tfidf_matrix= vectorizer.fit_transform(corpus)
     score = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])
     return round(float(score[0][0]) * 100,2) 
+
+def compare_skills(jd_text, resume_skills, skill_list):
+    jd_skills = []
+    jd_text_lower = jd_text.lower()
+    for skill in skill_list:
+        if skill.lower() in jd_text_lower:
+
+            jd_skills.append(skill)
+
+    matched = [skill for skill in jd_skills if skill in resume_skills ]
+    missing = [skill for skill in jd_skills if skill not in resume_skills]
+
+    return matched , missing
+
+

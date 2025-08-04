@@ -2,6 +2,8 @@ import streamlit as st
 from resume_parser import extract_text_from_pdf,extract_info
 from utils import calculate_similarity
 import os
+from resume_parser import SKILL_LIST
+from utils import compare_skills
 
 st.set_page_config(page_title="AI Resume Analyzer", layout="wide")
 
@@ -53,8 +55,19 @@ if upload_file is not None:
         score = calculate_similarity(resume_text,jd_text)
         st.success(f"Match Score : {score}%")
 
-    
-    os.remove("uploaded_resume.pdf")
+        # Compare skills
+        matched_skills, missing_skills = compare_skills(jd_text, info["skills"], SKILL_LIST)
+
+        st.subheader("🧠 Skill Comparison")
+        st.success(f"✅ Skills Found in Both Resume & JD: {', '.join(matched_skills) if matched_skills else 'None'}")
+        st.warning(f"❌ Skills Mentioned in JD But Missing from Resume: {', '.join(missing_skills) if missing_skills else 'None'}")
+
+        if missing_skills:
+            st.info("📢 Suggestion: Consider adding these missing skills to your resume if you're experienced with them.")
+
+    # Clean up uploaded resume
+    if os.path.exists("uploaded_resume.pdf"):
+        os.remove("uploaded_resume.pdf")
 
 
 else:
