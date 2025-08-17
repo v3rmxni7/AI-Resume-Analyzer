@@ -31,11 +31,6 @@ SKILL_LIST = [
 
 
 def extract_text_from_pdf(pdf_path):
-    '''
-    Extract text from  pdf 
-
-
-    '''
     text = ""
     with fitz.open(pdf_path) as doc:
         for page in doc:
