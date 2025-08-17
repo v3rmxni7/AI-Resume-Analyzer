@@ -1,3 +1,5 @@
 streamlit
 PyMuPDF
 scikit-learn
+google-generativeai
+python-dotenv
